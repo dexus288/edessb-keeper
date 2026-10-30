@@ -1,0 +1,23 @@
+[Unit]
+Description=EDESSB session keeper + Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=edessb
+WorkingDirectory=/opt/edessb-keeper
+EnvironmentFile=/opt/edessb-keeper/.env
+ExecStart=/opt/edessb-keeper/venv/bin/python /opt/edessb-keeper/edessb_keeper.py
+Restart=always
+RestartSec=10
+
+# Трохи ізоляції
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/opt/edessb-keeper
+
+[Install]
+WantedBy=multi-user.target
